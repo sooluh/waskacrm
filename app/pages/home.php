@@ -1,0 +1,3 @@
+<?php
+
+must_login();
