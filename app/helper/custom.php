@@ -3,19 +3,36 @@
 if (!function_exists('datenow')) {
     function datenow($time)
     {
+        $months = [
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
+
         $now = date('d', time());
         $today = date('d', $time);
         $tomorrow = date('d', $time) + 1;
 
-        $date = date('F d, Y', $time);
+        $date = date('Y-m-d ', $time);
+        $date = explode('-', $date);
+        $date = implode(' ', [$date[2], $months[$date[1]], $date[0]]) . ' ';
 
         if ($now == $today) {
-            $date = 'Hari ini, ';
+            $date = 'Hari ini ';
         } elseif ($now == $tomorrow) {
-            $date = 'Kemarin, ';
+            $date = 'Kemarin ';
         }
 
-        return $date . gmdate('H:i:s', $time + 60 * 60 * 7);
+        return $date . gmdate('H:i', $time + 60 * 60 * 7);
     }
 }
 
@@ -42,7 +59,7 @@ if (!function_exists('ago')) {
             }
         }
 
-        $print = ($count == 1) ? '1 ' . $name : "$count {$name}";
+        $print = $count == 1 ? '1 ' . $name : "$count {$name}";
 
         if ($time > (time() - 60)) {
             return 'Baru saja';

@@ -1,18 +1,27 @@
 Options All -Indexes
 
 <IfModule mod_security.c>
-    SecFilterEngine Off
-    SecFilterScanPOST Off
+	SecFilterEngine Off
+	SecFilterScanPOST Off
 </IfModule>
 
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /waskacrm/
-    RewriteRule ^/?$ index.php?page=home [L]
-    RewriteRule ^([a-z]+)$ index.php?page=$1 [L]
-    RewriteRule ^([a-z]+)/([a-z]+)$ index.php?page=$2&sub=$1 [L]
-    RewriteRule ^([a-z]+)/([a-z]+)/([a-z0-9]+)$ index.php?page=$2&sub=$1&uid=$3 [L]
+	Options +FollowSymlinks
+	RewriteEngine On
+	RewriteBase /waskacrm/
+
+	RewriteRule ^/?$ index.php?page=home [L,NC,QSA]
+	RewriteRule ^(\w+)$ index.php?page=$1 [L,NC,QSA]
+	RewriteRule ^(\w+)/(\w+)$ index.php?page=$2&sub=$1 [L,NC,QSA]
+	RewriteRule ^(\w+)/(\w+)/([a-z0-9]+)$ index.php?page=$2&sub=$1&uid=$3 [L,NC,QSA]
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php
 </IfModule>
 
-ErrorDocument 403 /error.php
-ErrorDocument 404 /error.php
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 index.php
+</IfModule>
+
+ServerSignature Off

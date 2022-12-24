@@ -28,7 +28,7 @@ if (empty($username) || empty($password)) {
 }
 
 if ($error) {
-    $_SESSION['flash']['error'] = $error;
+    set_flashdata('error', $error);
     go(current_url(false));
 }
 

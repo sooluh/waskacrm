@@ -5,3 +5,15 @@
     outline: none !important;
     box-shadow: none;
 }
+
+.logo-img-lg {
+    max-height: 120px;
+}
+
+.alert.alert-fill {
+    margin-bottom: 20px;
+}
+
+.dataTables_empty {
+    padding: 1rem 0.5rem !important;
+}

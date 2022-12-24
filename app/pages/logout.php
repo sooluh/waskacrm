@@ -1,0 +1,3 @@
+<?php
+
+go('auth/logout');
