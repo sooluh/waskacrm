@@ -40,3 +40,4 @@ if (file_exists($file)) {
 }
 
 unset($_SESSION['flash']);
+$db->close();

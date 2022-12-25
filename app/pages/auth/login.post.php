@@ -11,7 +11,7 @@ $username = mysqli_real_escape_string($db, $username);
 $password = mysqli_real_escape_string($db, $password);
 
 $error = false;
-$check = $db->query("SELECT * FROM `users` WHERE BINARY `login` = '$username'")->fetch_object();
+$check = $db->query("SELECT * FROM users WHERE BINARY login = '$username'")->fetch_object();
 
 if (empty($username) || empty($password)) {
     $error = 'Nama pengguna dan kata sandi tidak boleh kosong.';

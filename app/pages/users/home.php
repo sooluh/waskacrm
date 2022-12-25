@@ -57,9 +57,6 @@
                                                         <th class="waska-tb-col tb-col-md" data-column="login">
                                                             <span class="sub-text">Nama Pengguna</span>
                                                         </th>
-                                                        <th class="waska-tb-col tb-col-lg" data-column="phone">
-                                                            <span class="sub-text">Telepon</span>
-                                                        </th>
                                                         <th class="waska-tb-col tb-col-md" data-column="gender">
                                                             <span class="sub-text">Gender</span>
                                                         </th>
@@ -119,13 +116,6 @@
                             <label for="email" class="form-label">Surel</label>
                             <div class="form-control-wrap">
                                 <input type="email" class="form-control" id="email" name="email" spellcheck="false">
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="phone" class="form-label">Telepon</label>
-                            <div class="form-control-wrap">
-                                <input type="tel" class="form-control" id="phone" name="phone">
                             </div>
                         </div>
 
@@ -194,9 +184,6 @@
             }, {
                 data: 'login',
                 rowClass: 'tb-col-md'
-            }, {
-                data: 'phone',
-                rowClass: 'tb-col-lg'
             }, {
                 data: 'gender',
                 rowClass: 'tb-col-md'

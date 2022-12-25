@@ -9,7 +9,8 @@ if (empty($uid)) {
     go('users');
 }
 
-$delete = $db->query("UPDATE `users` SET `deleted_at` = NOW() WHERE `id` = '$uid'");
+$rand = substr(md5(mt_rand()), 0, 7);
+$delete = $db->query("UPDATE users SET login = '$rand', deleted_at = NOW() WHERE id = '$uid'");
 
 if (!$delete) {
     set_flashdata('error', 'Pengguna gagal dihapus.');

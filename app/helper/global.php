@@ -134,7 +134,10 @@ if (!function_exists('logged')) {
         if (empty($userdata)) {
             $uid = LOGGED;
 
-            $userdata = $db->query("SELECT * FROM users WHERE id = '$uid'")->fetch_object();
+            $userdata = $db
+                ->query("SELECT * FROM users WHERE id = '$uid' AND deleted_at IS NULL")
+                ->fetch_object();
+
             if (!$userdata) go('auth/logout');
 
             Waska::store('userdata', $userdata);
