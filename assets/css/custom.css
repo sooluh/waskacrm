@@ -17,3 +17,9 @@
 .dataTables_empty {
     padding: 1rem 0.5rem !important;
 }
+
+@media (min-width: 992px) {
+    .toggle-break-lg {
+        min-height: unset;
+    }
+}

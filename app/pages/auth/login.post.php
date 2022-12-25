@@ -1,10 +1,10 @@
 <?php
 
-$ref = isset($_GET['ref']) ? trim($_GET['ref']) : '';
+$ref = input_get('ref');
 
-$username = isset($_POST['username']) ? trim($_POST['username']) : '';
-$password = isset($_POST['password']) ? trim($_POST['password']) : '';
-$remember = isset($_POST['remember']) ? true : false;
+$username = input_post('username');
+$password = input_post('password');
+$remember = input_post('remember', true, false);
 
 $username = preg_replace('#([\W]+)#', '', $username);
 $username = mysqli_real_escape_string($db, $username);

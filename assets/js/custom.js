@@ -1231,6 +1231,21 @@ function run(App, $) {
     });
   };
 
+  App.LinkList = function () {
+    var current = window.location.href;
+    var path = current.substring(0, current.indexOf('#') == -1 ? current.length : current.indexOf('#'));
+    path = path.substring(0, path.indexOf('?') == -1 ? path.length : path.indexOf('?'));
+
+    $('ul.link-list-menu > li > a').each(function () {
+      var href = $(this).attr('href');
+      $(this).removeClass('active');
+
+      if (path.match(href)) {
+        $(this).addClass('active');
+      }
+    });
+  };
+
   App.OtherInit = function () {
     App.ClassBody();
     App.PassSwitch();
@@ -1245,8 +1260,9 @@ function run(App, $) {
     App.Lightbox('.popup-image', 'image');
     App.Lightbox('.popup-content', 'content');
     App.Control('.custom-control-input');
-    App.Crud();
     App.FlashData();
+    App.Crud();
+    App.LinkList();
   };
 
   App.Ani.init = function () {

@@ -26,6 +26,13 @@ if (!function_exists('helper')) {
     }
 }
 
+if (!function_exists('render')) {
+    function render($name)
+    {
+        include "./app/pages/$name.php";
+    }
+}
+
 if (!function_exists('base_url')) {
     function base_url($segment = '')
     {
@@ -51,75 +58,6 @@ if (!function_exists('go')) {
 
         header('Location: ' . $url);
         exit();
-    }
-}
-
-if (!function_exists('title')) {
-    function title($page = '')
-    {
-        $page = trim($page);
-        return !empty($page) ? ($page . ' - ' . APP_NAME) : APP_NAME;
-    }
-}
-
-if (!function_exists('must_login')) {
-    function must_login($inverse = false)
-    {
-        if (!LOGGED && !$inverse) {
-            $ref = rawurlencode(current_url(false));
-            go(APP_URL . '/auth/login?ref=' . $ref);
-        }
-
-        if (LOGGED && $inverse) {
-            $ref = isset($_GET['ref']) ? trim($_GET['ref']) : '%2F';
-            go(rawurldecode($ref));
-        }
-    }
-}
-
-if (!function_exists('flashdata')) {
-    function flashdata($key = null)
-    {
-        $flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : [];
-        return $key ? (isset($flash[$key]) ? $flash[$key] : null) : $flash;
-    }
-}
-
-if (!function_exists('set_flashdata')) {
-    function set_flashdata($key, $value)
-    {
-        $_SESSION['flash'][$key] = $value;
-        return true;
-    }
-}
-
-if (!function_exists('html_minifier')) {
-    function html_minifier($buffer)
-    {
-        if (!APP_PRODUCTION) return $buffer;
-        if (strpos($buffer, '<!DOCTYPE html>') === false) return $buffer;
-
-        $replace = [
-            '/\t(\s+)?/' => '',
-            '/\n(\s+)?/' => '',
-            '/\>[^\S ]+/s' => '>',
-            '/[^\S ]+\</s' => '<',
-            '/(\s)+/s' => '\\1',
-            '/<!--(.|\s)*?-->/' => '',
-            '/\>\s+\</s' => '><',
-            '/\<script type="text\/javascript"\>\<\/script\>/s' => '',
-            '/\s+type="text\/javascript"/s' => '',
-            '/\s+\</s' => '<',
-            '/\s+\=\s+/s' => '=',
-            '/\:\s+(\'|\"|\[)/s' => ':$1',
-            '/\},\s+\{/s' => '},{',
-        ];
-
-        return trim(preg_replace(
-            array_keys($replace),
-            array_values($replace),
-            $buffer
-        ));
     }
 }
 
@@ -150,8 +88,81 @@ if (!function_exists('logged')) {
 if (!function_exists('role')) {
     function role($id = '')
     {
-        $roles = ['Developer', 'Admin'];
+        $roles = ['Developer', 'Admin', 'Sales Department', 'Support', 'Top Management'];
         return $id === '' ? $roles : ($roles[$id] ?? 'Unknown');
+    }
+}
+
+if (!function_exists('must_login')) {
+    function must_login($inverse = false)
+    {
+        if (!LOGGED && !$inverse) {
+            $ref = rawurlencode(current_url(false));
+            go(APP_URL . '/auth/login?ref=' . $ref);
+        }
+
+        if (LOGGED && $inverse) {
+            $ref = isset($_GET['ref']) ? trim($_GET['ref']) : '%2F';
+            go(rawurldecode($ref));
+        }
+    }
+}
+
+if (!function_exists('access_granted')) {
+    function access_granted($role = [])
+    {
+        $roleid = logged('role');
+        if (count($role) <= 0 || (is_array($role) && in_array($roleid, $role))) return true;
+        return $role === $roleid ? true : false;
+    }
+}
+
+if (!function_exists('bouncer')) {
+    function bouncer($permission = [])
+    {
+        must_login();
+
+        if (!access_granted($permission)) {
+            go('403');
+        }
+    }
+}
+
+if (!function_exists('flashdata')) {
+    function flashdata($key = null)
+    {
+        $flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : [];
+        return $key ? (isset($flash[$key]) ? $flash[$key] : null) : $flash;
+    }
+}
+
+if (!function_exists('set_flashdata')) {
+    function set_flashdata($key, $value)
+    {
+        $_SESSION['flash'][$key] = $value;
+        return true;
+    }
+}
+
+if (!function_exists('input_post')) {
+    function input_post($key, $true = null, $false = '')
+    {
+        return isset($_POST[$key]) ? ($true ?? trim($_POST[$key])) : $false;
+    }
+}
+
+if (!function_exists('input_get')) {
+    function input_get($key)
+    {
+        return isset($_GET[$key]) ? trim($_GET[$key]) : '';
+    }
+}
+
+if (!function_exists('title')) {
+    function title($page = '')
+    {
+        $page = trim($page);
+        return !empty($page) ? ($page . ' - ' . APP_NAME) : APP_NAME;
     }
 }
 
@@ -206,20 +217,41 @@ if (!function_exists('sidebar')) {
     }
 }
 
-if (!function_exists('access_granted')) {
-    function access_granted($role = [])
-    {
-        $roleid = logged('role');
-        if (count($role) <= 0 || (is_array($role) && in_array($roleid, $role))) return true;
-        return $role === $roleid ? true : false;
-    }
-}
-
 if (!function_exists('response_json')) {
     function response_json($data = [])
     {
         header('Content-Type: application/json');
         echo json_encode($data);
         die();
+    }
+}
+
+if (!function_exists('html_minifier')) {
+    function html_minifier($buffer)
+    {
+        if (!APP_PRODUCTION) return $buffer;
+        if (strpos($buffer, '<!DOCTYPE html>') === false) return $buffer;
+
+        $replace = [
+            '/\t(\s+)?/' => '',
+            '/\n(\s+)?/' => '',
+            '/\>[^\S ]+/s' => '>',
+            '/[^\S ]+\</s' => '<',
+            '/(\s)+/s' => '\\1',
+            '/<!--(.|\s)*?-->/' => '',
+            '/\>\s+\</s' => '><',
+            '/\<script type="text\/javascript"\>\<\/script\>/s' => '',
+            '/\s+type="text\/javascript"/s' => '',
+            '/\s+\</s' => '<',
+            '/\s+\=\s+/s' => '=',
+            '/\:\s+(\'|\"|\[)/s' => ':$1',
+            '/\},\s+\{/s' => '},{',
+        ];
+
+        return trim(preg_replace(
+            array_keys($replace),
+            array_values($replace),
+            $buffer
+        ));
     }
 }

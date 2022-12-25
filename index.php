@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-if (file_exists($file)) {
+if (file_exists($file) && !preg_match('/\/\_/', $file)) {
     include_once $file;
-} elseif (!empty($subfile) && file_exists($subfile)) {
+} elseif (!empty($subfile) && file_exists($subfile) && !preg_match('/\/\_/', $subfile)) {
     include_once $subfile;
 } else {
     http_response_code(404);

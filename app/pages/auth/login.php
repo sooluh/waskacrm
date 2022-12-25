@@ -1,13 +1,13 @@
 <?php must_login(true) ?>
 <!DOCTYPE html>
-<html lang="id" class="js">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= title('Masuk') ?></title>
-    <?php include_once './app/pages/_layouts/css.php' ?>
+    <?php render('_layouts/css') ?>
 </head>
 
 <body class="waska-body bg-white npc-general pg-auth">
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <?php include './app/pages/_layouts/js.php' ?>
+    <?php render('_layouts/js') ?>
 </body>
 
 </html>

@@ -1,23 +1,23 @@
-<?php must_login() ?>
+<?php bouncer(['0', '1']) ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= title('Kelola Pengguna') ?></title>
-    <?php include './app/pages/_layouts/css.php' ?>
-    <?php include './app/pages/_layouts/flashdata.php' ?>
+    <?php render('_layouts/css') ?>
+    <?php render('_layouts/flashdata') ?>
 </head>
 
 <body class="waska-body bg-lighter npc-general has-sidebar">
     <div class="waska-app-root">
         <div class="waska-main">
-            <?php include './app/pages/_layouts/sidebar.php' ?>
+            <?php render('_layouts/sidebar') ?>
 
             <div class="waska-wrap">
-                <?php include './app/pages/_layouts/header.php' ?>
+                <?php render('_layouts/header') ?>
 
                 <div class="waska-content">
                     <div class="container-fluid">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <?php include './app/pages/_layouts/footer.php' ?>
+                <?php render('_layouts/footer') ?>
             </div>
         </div>
     </div>
@@ -157,7 +157,8 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <div class="alert alert-info">
+                            <div class="alert alert-fill alert-icon alert-info mb-0" role="alert">
+                                <em class="icon ni ni-alert-circle"></em>
                                 <p class="mb-0">Secara default kata sandi akan disetel menjadi (perhatikan besar kecilnya huruf): <strong>Waska.123</strong></p>
                             </div>
                         </div>
@@ -200,7 +201,7 @@
         };
     </script>
 
-    <?php include './app/pages/_layouts/js.php' ?>
+    <?php render('_layouts/js') ?>
 </body>
 
 </html>

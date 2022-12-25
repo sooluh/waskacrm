@@ -1,8 +1,8 @@
 <?php
 
-must_login();
+bouncer(['0', '1']);
 
-$uid = isset($_GET['uid']) ? trim($_GET['uid']) : '';
+$uid = input_get('uid');
 
 if (empty($uid)) {
     set_flashdata('error', 'Pengguna tidak dapat ditemukan.');

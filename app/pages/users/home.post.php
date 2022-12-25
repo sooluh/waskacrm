@@ -1,9 +1,9 @@
 <?php
 
-must_login();
+bouncer(['0', '1']);
 
-$draw = isset($_POST['draw']) ? intval($_POST['draw']) : null;
-if ($draw === null) {
+$draw = input_post('draw');
+if (empty($draw)) {
     die('Ini bukan permintaan datatable.');
 }
 
@@ -14,8 +14,8 @@ $from = $db->query("SELECT COUNT(id) AS total FROM users WHERE id != '$logged' A
 $count = $from->fetch_object();
 $total = $filtered = $count->total;
 
-$limit = isset($_POST['length']) ? $_POST['length'] : 10;
-$start = isset($_POST['start']) ? $_POST['start'] : 1;
+$limit = input_post('length', null, 10);
+$start = input_post('start', null, 1);
 $order = isset($_POST['order']['0']['column']) ? $columns[$_POST['order']['0']['column']] : 'id';
 $dir = isset($_POST['order']['0']['dir']) ? strtoupper($_POST['order']['0']['dir']) : 'DESC';
 
@@ -70,7 +70,7 @@ if (!empty($query)) {
 }
 
 $json = [
-    'draw' => $draw,
+    'draw' => intval($draw),
     'recordsTotal' => intval($total),
     'recordsFiltered' => intval($filtered),
     'data' => $data,

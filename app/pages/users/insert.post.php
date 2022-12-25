@@ -1,13 +1,13 @@
 <?php
 
-must_login();
+bouncer(['0', '1']);
 
-$login = isset($_POST['login']) ? trim($_POST['login']) : '';
-$name = isset($_POST['name']) ? trim($_POST['name']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
-$role = isset($_POST['role']) ? trim($_POST['role']) : '';
-$active = isset($_POST['active']) ? 'TRUE' : 'FALSE';
+$login = input_post('login');
+$name = input_post('name');
+$email = input_post('email');
+$gender = input_post('gender');
+$role = input_post('role');
+$active = input_post('active', 'TRUE', 'FALSE');
 
 $error = false;
 $unique = $db->query("SELECT id FROM users WHERE login = '$login'")->num_rows;

@@ -1,8 +1,8 @@
 <?php
 
-must_login();
+bouncer(['0', '1']);
 
-$uid = isset($_GET['uid']) ? trim($_GET['uid']) : '';
+$uid = input_get('uid');
 $user = $db->query("SELECT * FROM users WHERE id = '$uid' AND deleted_at IS NULL")->fetch_object();
 
 if (empty($uid) || empty($user)) {
@@ -10,12 +10,12 @@ if (empty($uid) || empty($user)) {
     go('users');
 }
 
-$login = isset($_POST['login']) ? trim($_POST['login']) : '';
-$name = isset($_POST['name']) ? trim($_POST['name']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
-$role = isset($_POST['role']) ? trim($_POST['role']) : '';
-$active = isset($_POST['active']) ? 'TRUE' : 'FALSE';
+$login = input_post('login');
+$name = input_post('name');
+$email = input_post('email');
+$gender = input_post('gender');
+$role = input_post('role');
+$active = input_post('active', 'TRUE', 'FALSE');
 
 $error = false;
 $unique = $db->query("SELECT id FROM users WHERE login = '$login' AND id != '$uid'")->num_rows;
