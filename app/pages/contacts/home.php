@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= title('Kelola Account') ?></title>
+    <title><?= title('Kelola Contact') ?></title>
     <?php render('_layouts/css') ?>
     <?php render('_layouts/flashdata') ?>
 </head>
@@ -27,15 +27,15 @@
                                     <div class="waska-block-between">
                                         <div class="waska-block-head-content">
                                             <h3 class="waska-block-title page-title">
-                                                Kelola Account
+                                                Kelola Contact
                                             </h3>
                                         </div>
 
-                                        <a href="<?= base_url('accounts/add') ?>" class="btn btn-icon btn-primary d-md-none">
+                                        <a href="<?= base_url('contacts/add') ?>" class="btn btn-icon btn-primary d-md-none">
                                             <em class="icon ni ni-plus"></em>
                                         </a>
 
-                                        <a href="<?= base_url('accounts/add') ?>" class="btn btn-primary d-none d-md-inline-flex">
+                                        <a href="<?= base_url('contacts/add') ?>" class="btn btn-primary d-none d-md-inline-flex">
                                             <em class="icon ni ni-plus"></em>
                                             <span>Tambah</span>
                                         </a>
@@ -54,14 +54,14 @@
                                                         <th class="waska-tb-col" data-column="name">
                                                             <span class="sub-text">Nama</span>
                                                         </th>
-                                                        <th class="waska-tb-col tb-col-md" data-column="email">
+                                                        <th class="waska-tb-col tb-col-md" data-column="account">
+                                                            <span class="sub-text">Account</span>
+                                                        </th>
+                                                        <th class="waska-tb-col" data-column="email">
                                                             <span class="sub-text">Surel</span>
                                                         </th>
-                                                        <th class="waska-tb-col" data-column="type">
-                                                            <span class="sub-text">Tipe</span>
-                                                        </th>
-                                                        <th class="waska-tb-col tb-col-lg" data-column="billing_country">
-                                                            <span class="sub-text">Negara</span>
+                                                        <th class="waska-tb-col tb-col-lg" data-column="phone">
+                                                            <span class="sub-text">Telepon</span>
                                                         </th>
                                                         <th class="waska-tb-col tb-col-md" data-column="created_at">
                                                             <span class="sub-text">Ditambahkan</span>
@@ -93,12 +93,12 @@
             }, {
                 data: 'name'
             }, {
+                data: 'account'
+            }, {
                 data: 'email',
                 rowClass: 'tb-col-md'
             }, {
-                data: 'type'
-            }, {
-                data: 'billing_country',
+                data: 'phone',
                 rowClass: 'tb-col-lg'
             }, {
                 data: 'created_at',

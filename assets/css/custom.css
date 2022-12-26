@@ -35,15 +35,21 @@ textarea.auto-height {
     font-size: 0.8125rem;
 }
 
-.form-control-wrap + .row {
+.form-control-wrap + .row,
+.row.gap-yey {
     padding: 0 8px;
 }
 
-.form-control-wrap + .row > * {
+.form-control-wrap + .row > *,
+.row.gap-yey > * {
     padding: 6px;
 }
 
 .input-group-btn > .form-control {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding: 0.4375rem 0.7rem;
 }

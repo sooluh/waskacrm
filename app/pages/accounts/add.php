@@ -29,7 +29,7 @@
                                             <div class="waska-block-head-sub mb-0">
                                                 <a class="back-to" href="<?= base_url('accounts') ?>">
                                                     <em class="icon ni ni-arrow-left"></em>
-                                                    <span>Accounts</span>
+                                                    <span>Account</span>
                                                 </a>
                                             </div>
                                         </div>

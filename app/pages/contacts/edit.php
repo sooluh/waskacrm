@@ -3,9 +3,9 @@
 must_login();
 
 $uid = input_get('uid');
-$account = $db->query("SELECT * FROM accounts WHERE id = '$uid' AND deleted_at IS NULL")->fetch_object();
+$contact = $db->query("SELECT * FROM contacts WHERE id = '$uid' AND deleted_at IS NULL")->fetch_object();
 
-if (!$account) {
+if (!$contact) {
     go('404');
 }
 
@@ -17,7 +17,7 @@ if (!$account) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= title('Ubah Account') ?></title>
+    <title><?= title('Ubah Contact') ?></title>
     <?php render('_layouts/css') ?>
     <?php render('_layouts/flashdata') ?>
 </head>
@@ -38,15 +38,15 @@ if (!$account) {
                                     <div class="waska-block-head waska-block-head-lg wide-sm pb-4">
                                         <div class="waska-block-head-content">
                                             <div class="waska-block-head-sub mb-0">
-                                                <a class="back-to" href="<?= base_url('accounts') ?>">
+                                                <a class="back-to" href="<?= base_url('contacts') ?>">
                                                     <em class="icon ni ni-arrow-left"></em>
-                                                    <span>Account</span>
+                                                    <span>Contact</span>
                                                 </a>
                                             </div>
                                         </div>
 
                                         <div class="waska-block-head-content mt-1">
-                                            <h3 class="title waska-block-title">Ubah Account</h3>
+                                            <h3 class="title waska-block-title">Ubah Contact</h3>
                                         </div>
                                     </div>
 
@@ -56,17 +56,41 @@ if (!$account) {
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="name">Nama</label>
-                                                        <div class="form-control-wrap">
-                                                            <input type="text" class="form-control" id="name" name="name" required="" value="<?= $account->name ?>">
+                                                        <div class="row gap-yey">
+                                                            <div class="col-sm-2 col-xs-2">
+                                                                <select name="salutation" id="salutation" class="form-control js-select2" data-placeholder="Pilih">
+                                                                    <option value="">Pilih</option>
+                                                                    <?php foreach (salutation() as $val => $text) : ?>
+                                                                        <option value="<?= $val ?>" <?= $contact->salutation == $val ? 'selected=""' : '' ?>><?= $text ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-5 col-xs-5">
+                                                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nama Depan" value="<?= $contact->first_name ?>">
+                                                            </div>
+                                                            <div class="col-sm-5 col-xs-5">
+                                                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nama Belakang" value="<?= $contact->last_name ?>">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
-                                                        <div class="form-control-wrap">
-                                                            <input type="url" class="form-control" id="website" name="website" value="<?= $account->website ?>">
+                                                        <label class="form-label" for="account">Account</label>
+                                                        <div class="row gap-yey">
+                                                            <div class="col-sm-8 col-xs-8">
+                                                                <select name="account" id="account" class="form-control js-select2" data-placeholder="Pilih">
+                                                                    <option value="">Pilih</option>
+                                                                    <?php $accounts = $db->query("SELECT * FROM accounts WHERE deleted_at IS NULL") ?>
+                                                                    <?php while ($account = $accounts->fetch_object()) : ?>
+                                                                        <option value="<?= $account->id ?>" <?= $contact->account == $account->id ? 'selected=""' : '' ?>><?= $account->name ?></option>
+                                                                    <?php endwhile ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-4">
+                                                                <input type="text" class="form-control" id="title" name="title" placeholder="Jabatan" value="<?= $contact->title ?>">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,7 +99,7 @@ if (!$account) {
                                                     <div class="form-group">
                                                         <label class="form-label" for="email">Surel</label>
                                                         <div class="form-control-wrap">
-                                                            <input type="email" class="form-control" id="email" name="email" value="<?= $account->email ?>">
+                                                            <input type="email" class="form-control" id="email" name="email" value="<?= $contact->email ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,11 +112,11 @@ if (!$account) {
                                                                 <span class="input-group-btn">
                                                                     <select name="phone_type" id="phone_type" class="form-control">
                                                                         <?php foreach (phone_type() as $val => $text) : ?>
-                                                                            <option value="<?= $val ?>" <?= $account->phone_type == $val ? 'selected=""' : '' ?>><?= $text ?></option>
+                                                                            <option value="<?= $val ?>" <?= $contact->phone_type == $val ? 'selected=""' : '' ?>><?= $text ?></option>
                                                                         <?php endforeach ?>
                                                                     </select>
                                                                 </span>
-                                                                <input type="tel" class="form-control" id="phone_number" name="phone_number" value="<?= $account->phone_number ?>">
+                                                                <input type="tel" class="form-control" id="phone_number" name="phone_number" value="<?= $contact->phone_number ?>">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -100,74 +124,23 @@ if (!$account) {
 
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label for="billing" class="form-label">Alamat Tagihan</label>
+                                                        <label for="address" class="form-label">Alamat</label>
                                                         <div class="form-control-wrap mb-1">
-                                                            <textarea name="billing_street" id="billing" class="form-control auto-height" placeholder="Alamat" rows="1"><?= $account->billing_street ?></textarea>
+                                                            <textarea name="street" id="address" class="form-control auto-height" placeholder="Alamat" rows="1"><?= $contact->street ?></textarea>
                                                         </div>
                                                         <div class="row mb-1">
                                                             <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="billing_city" name="billing_city" placeholder="Kota" value="<?= $account->billing_city ?>">
+                                                                <input type="text" class="form-control" id="city" name="city" placeholder="Kota" value="<?= $contact->city ?>">
                                                             </div>
                                                             <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="billing_state" name="billing_state" placeholder="Provinsi" value="<?= $account->billing_state ?>">
+                                                                <input type="text" class="form-control" id="state" name="state" placeholder="Provinsi" value="<?= $contact->state ?>">
                                                             </div>
                                                             <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="billing_zip" name="billing_zip" placeholder="Kode Pos" value="<?= $account->billing_zip ?>">
+                                                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Kode Pos" value="<?= $contact->zip ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-control-wrap">
-                                                            <input type="text" class="form-control" id="billing_country" name="billing_country" placeholder="Negara" value="<?= $account->billing_country ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mb-3">
-                                                    <div class="form-group">
-                                                        <label for="shipping" class="form-label">Alamat Pengiriman</label>
-                                                        <div class="form-control-wrap mb-1">
-                                                            <textarea name="shipping_street" id="shipping" class="form-control auto-height" placeholder="Alamat" rows="1"><?= $account->shipping_street ?></textarea>
-                                                        </div>
-                                                        <div class="row mb-1">
-                                                            <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="shipping_city" name="shipping_city" placeholder="Kota" value="<?= $account->shipping_city ?>">
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="shipping_state" name="shipping_state" placeholder="Provinsi" value="<?= $account->shipping_state ?>">
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-4">
-                                                                <input type="text" class="form-control" id="shipping_zip" name="shipping_zip" placeholder="Kode Pos" value="<?= $account->shipping_zip ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-control-wrap">
-                                                            <input type="text" class="form-control" id="shipping_country" name="shipping_country" placeholder="Negara" value="<?= $account->shipping_country ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mb-3">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="type">Tipe</label>
-                                                        <div class="form-control-wrap">
-                                                            <select name="type" id="type" class="form-control js-select2" data-placeholder="Pilih">
-                                                                <option value="">Pilih</option>
-                                                                <?php foreach (account_type() as $val => $text) : ?>
-                                                                    <option value="<?= $val ?>" <?= $account->type == $val ? 'selected=""' : '' ?>><?= $text ?></option>
-                                                                <?php endforeach ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mb-3">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="industry">Industri</label>
-                                                        <div class="form-control-wrap">
-                                                            <select name="industry" id="industry" class="form-control js-select2" data-search="on" data-placeholder="Pilih">
-                                                                <option value="">Pilih</option>
-                                                                <?php foreach (industry_type() as $val => $text) : ?>
-                                                                    <option value="<?= $val ?>" <?= $account->industry == $val ? 'selected=""' : '' ?>><?= $text ?></option>
-                                                                <?php endforeach ?>
-                                                            </select>
+                                                            <input type="text" class="form-control" id="country" name="country" placeholder="Negara" value="<?= $contact->country ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,7 +149,7 @@ if (!$account) {
                                                     <div class="form-group">
                                                         <label class="form-label" for="description">Deskripsi</label>
                                                         <div class="form-control-wrap">
-                                                            <textarea name="description" id="description" class="form-control"><?= $account->description ?></textarea>
+                                                            <textarea name="description" id="description" class="form-control"><?= $contact->description ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -190,7 +163,7 @@ if (!$account) {
                                                                     <option value="">Pilih</option>
                                                                     <?php $users = $db->query("SELECT id, name FROM users WHERE deleted_at IS NULL") ?>
                                                                     <?php while ($user = $users->fetch_object()) : ?>
-                                                                        <option value="<?= $user->id ?>" <?= $account->assigned == $user->id ? 'selected=""' : '' ?>><?= $user->name ?></option>
+                                                                        <option value="<?= $user->id ?>" <?= $contact->assigned == $user->id ? 'selected=""' : '' ?>><?= $user->name ?></option>
                                                                     <?php endwhile ?>
                                                                 </select>
                                                             </div>
@@ -205,7 +178,7 @@ if (!$account) {
                                                                     <option value="">Pilih</option>
                                                                     <?php foreach (role() as $val => $text) : ?>
                                                                         <?php if ($val >= 2) : ?>
-                                                                            <option value="<?= $val ?>" <?= $account->role == $val ? 'selected=""' : '' ?>><?= $text ?></option>
+                                                                            <option value="<?= $val ?>" <?= $contact->role == $val ? 'selected=""' : '' ?>><?= $text ?></option>
                                                                         <?php endif ?>
                                                                     <?php endforeach ?>
                                                                 </select>

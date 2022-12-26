@@ -144,3 +144,11 @@ if (!function_exists('industry_type')) {
         return $value !== '' ? ($types[$value] ?? 'Tidak Ada') : $types;
     }
 }
+
+if (!function_exists('salutation')) {
+    function salutation($value = '')
+    {
+        $data = [1 => 'Mr.', 'Ms.', 'Mrs.', 'Dr.'];
+        return $value !== '' ? ($data[$value] ?? 'Tidak Ada') : $data;
+    }
+}
