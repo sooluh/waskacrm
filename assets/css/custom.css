@@ -23,3 +23,27 @@
         min-height: unset;
     }
 }
+
+textarea.auto-height {
+    resize: none;
+    overflow-x: hidden;
+    margin: 0;
+    height: auto;
+    min-height: unset;
+    line-height: 1.25rem;
+    padding: 0.4375rem 1rem;
+    font-size: 0.8125rem;
+}
+
+.form-control-wrap + .row {
+    padding: 0 8px;
+}
+
+.form-control-wrap + .row > * {
+    padding: 6px;
+}
+
+.input-group-btn > .form-control {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}

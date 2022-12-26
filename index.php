@@ -9,6 +9,7 @@ session_start();
 include_once './app/config/app.php';
 include_once './app/config/database.php';
 include_once './app/helper/global.php';
+include_once './app/helper/custom.php';
 
 ob_start('html_minifier');
 

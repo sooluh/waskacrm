@@ -15,7 +15,7 @@ if (empty($password) || empty($newpass) || empty($repass)) {
     $error = 'Kata sandi lama salah.';
 } elseif (password_verify($password, $newpass)) {
     $error = 'Kata sandi lama tidak bisa digunakan kembali.';
-} elseif ($newpass !== $repass) {
+} elseif ($newpass != $repass) {
     $error = 'Pengulangan kata sandi baru tidak cocok.';
 } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $repass)) {
     $error = 'Kata sandi tidak valid.';

@@ -56,14 +56,14 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="name">Nama Lengkap</label>
-                                                                <input type="text" class="form-control" name="name" id="name" value="<?= logged('name') ?>">
+                                                                <input type="text" class="form-control" name="name" id="name" value="<?= logged('name') ?>" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="email">Alamat Surel</label>
-                                                                <input type="email" class="form-control" name="email" id="email" value="<?= logged('email') ?>">
+                                                                <input type="email" class="form-control" name="email" id="email" value="<?= logged('email') ?>" required="">
                                                             </div>
                                                         </div>
 
@@ -72,11 +72,11 @@
                                                                 <label class="form-label" for="gender">Gender</label>
                                                                 <div class="form-control-wrap d-flex" style="gap: 20px;">
                                                                     <div class="custom-control custom-radio">
-                                                                        <input type="radio" id="male" value="M" name="gender" class="custom-control-input" required="" <?= logged('gender') === 'M' ? 'checked' : '' ?>>
+                                                                        <input type="radio" id="male" value="M" name="gender" class="custom-control-input" required="" <?= logged('gender') == 'M' ? 'checked' : '' ?>>
                                                                         <label class="custom-control-label" for="male">Laki-Laki</label>
                                                                     </div>
                                                                     <div class="custom-control custom-radio">
-                                                                        <input type="radio" id="female" value="F" name="gender" class="custom-control-input" required="" <?= logged('gender') === 'F' ? 'checked' : '' ?>>
+                                                                        <input type="radio" id="female" value="F" name="gender" class="custom-control-input" required="" <?= logged('gender') == 'F' ? 'checked' : '' ?>>
                                                                         <label class="custom-control-label" for="female">Perempuan</label>
                                                                     </div>
                                                                 </div>

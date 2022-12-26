@@ -19,13 +19,6 @@ if (APP_PRODUCTION) {
     @mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 }
 
-if (!function_exists('helper')) {
-    function helper($name)
-    {
-        include_once "./app/helper/$name.php";
-    }
-}
-
 if (!function_exists('render')) {
     function render($name)
     {
@@ -81,7 +74,7 @@ if (!function_exists('logged')) {
             Waska::store('userdata', $userdata);
         }
 
-        return $key === '' ? $userdata : ($userdata->{$key} ?? '');
+        return $key == '' ? $userdata : ($userdata->{$key} ?? '');
     }
 }
 
@@ -89,7 +82,7 @@ if (!function_exists('role')) {
     function role($id = '')
     {
         $roles = ['Developer', 'Admin', 'Sales Department', 'Support', 'Top Management'];
-        return $id === '' ? $roles : ($roles[$id] ?? 'Unknown');
+        return $id == '' ? $roles : ($roles[$id] ?? 'Unknown');
     }
 }
 
@@ -113,7 +106,7 @@ if (!function_exists('access_granted')) {
     {
         $roleid = logged('role');
         if (count($role) <= 0 || (is_array($role) && in_array($roleid, $role))) return true;
-        return $role === $roleid ? true : false;
+        return $role == $roleid ? true : false;
     }
 }
 
@@ -176,9 +169,9 @@ if (!function_exists('sidebar')) {
             $item = [];
 
             if ((property_exists($menu, 'permission')
-                    && property_exists($menu, 'children') === false)
-                || (property_exists($menu, 'permission') === false
-                    && property_exists($menu, 'children') === false)
+                    && property_exists($menu, 'children') == false)
+                || (property_exists($menu, 'permission') == false
+                    && property_exists($menu, 'children') == false)
             ) {
                 $item = [
                     'title' => $menu->title,
@@ -230,7 +223,7 @@ if (!function_exists('html_minifier')) {
     function html_minifier($buffer)
     {
         if (!APP_PRODUCTION) return $buffer;
-        if (strpos($buffer, '<!DOCTYPE html>') === false) return $buffer;
+        if (strpos($buffer, '<!DOCTYPE html>') == false) return $buffer;
 
         $replace = [
             '/\t(\s+)?/' => '',

@@ -49,7 +49,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="password">Kata Sandi lama</label>
-                                                                <input type="password" class="form-control" name="password" id="password">
+                                                                <input type="password" class="form-control" name="password" id="password" required="">
                                                             </div>
                                                         </div>
 
@@ -61,14 +61,14 @@
 
                                                             <div class="form-group">
                                                                 <label class="form-label" for="newpass">Kata Sandi Baru</label>
-                                                                <input type="password" class="form-control" name="newpass" id="newpass">
+                                                                <input type="password" class="form-control" name="newpass" id="newpass" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="repass">Ulangi Kata Sandi</label>
-                                                                <input type="password" class="form-control" name="repass" id="repass">
+                                                                <input type="password" class="form-control" name="repass" id="repass" required="">
                                                             </div>
                                                         </div>
 

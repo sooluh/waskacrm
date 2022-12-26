@@ -57,9 +57,6 @@
                                                         <th class="waska-tb-col tb-col-md" data-column="login">
                                                             <span class="sub-text">Nama Pengguna</span>
                                                         </th>
-                                                        <th class="waska-tb-col tb-col-md" data-column="gender">
-                                                            <span class="sub-text">Gender</span>
-                                                        </th>
                                                         <th class="waska-tb-col tb-col-lg" data-column="role">
                                                             <span class="sub-text">Peran</span>
                                                         </th>
@@ -136,7 +133,8 @@
                         <div class="form-group mb-3">
                             <label for="role" class="form-label">Peran</label>
                             <div class="form-control-wrap">
-                                <select name="role" id="role" class="form-control js-select2" required="">
+                                <select name="role" id="role" class="form-control js-select2" data-placeholder="Pilih" required="">
+                                    <option value="">Pilih</option>
                                     <?php foreach (role() as $val => $text) : ?>
                                         <?php if ($val >= 1) : ?>
                                             <option value="<?= $val ?>"><?= $text ?></option>
@@ -184,9 +182,6 @@
                 rowTemplate: '<div class="user-card"><div class="user-avatar d-none d-sm-flex"><span>${data.name[0]}</span></div><div class="user-info"><span class="tb-lead">${data.name}</span><span>${data.email}</span></div></div>'
             }, {
                 data: 'login',
-                rowClass: 'tb-col-md'
-            }, {
-                data: 'gender',
                 rowClass: 'tb-col-md'
             }, {
                 data: 'role',

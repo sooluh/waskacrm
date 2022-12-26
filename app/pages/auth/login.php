@@ -46,7 +46,7 @@
                                             <label class="form-label" for="username">Nama pengguna</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Masukkan nama pengguna" autofocus="">
+                                            <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Masukkan nama pengguna" autofocus="" required="">
                                         </div>
                                     </div>
 
@@ -59,7 +59,7 @@
                                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                                 <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                             </a>
-                                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Masukkan kata sandi">
+                                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Masukkan kata sandi" required="">
                                         </div>
                                     </div>
 

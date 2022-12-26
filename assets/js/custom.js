@@ -571,7 +571,27 @@ function run(App, $) {
               var features = action.getAttribute('data-features') || '';
               var actions = [];
 
-              if (features.includes('edit')) {
+              if (features.includes('detail-page')) {
+                actions.push({
+                  name: 'a',
+                  attr: { href: window.location.href + '/detail/' + row.id },
+                  content: [
+                    { name: 'em', attr: { class: 'icon ni ni-eye' } },
+                    { name: 'span', content: 'Detail' },
+                  ],
+                });
+              }
+
+              if (features.includes('edit-page')) {
+                actions.push({
+                  name: 'a',
+                  attr: { href: window.location.href + '/edit/' + row.id },
+                  content: [
+                    { name: 'em', attr: { class: 'icon ni ni-pen' } },
+                    { name: 'span', content: 'Ubah' },
+                  ],
+                });
+              } else if (features.includes('edit')) {
                 var edit = {
                   'data-bs-toggle': 'modal',
                   'data-bs-target': "#form-modal",
@@ -1246,6 +1266,13 @@ function run(App, $) {
     });
   };
 
+  App.AutoHeight = function () {
+    $('textarea.auto-height').on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight + 1.5) + 'px';
+    });
+  };
+
   App.OtherInit = function () {
     App.ClassBody();
     App.PassSwitch();
@@ -1263,6 +1290,7 @@ function run(App, $) {
     App.FlashData();
     App.Crud();
     App.LinkList();
+    App.AutoHeight();
   };
 
   App.Ani.init = function () {

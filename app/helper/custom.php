@@ -32,7 +32,7 @@ if (!function_exists('datenow')) {
             $date = 'Kemarin ';
         }
 
-        return $date . gmdate('H:i', $time + 60 * 60 * 7);
+        return $date . gmdate('H:i:s', $time + 60 * 60 * 7);
     }
 }
 
@@ -66,5 +66,81 @@ if (!function_exists('ago')) {
         } else {
             return $print . ' yang lalu';
         }
+    }
+}
+
+if (!function_exists('phone_type')) {
+    function phone_type($value = '')
+    {
+        $types = [1 => 'Mobile', 'Office', 'Fax', 'Other'];
+        return $value !== '' ? ($types[$value] ?? 'Tidak Ada') : $types;
+    }
+}
+
+if (!function_exists('account_type')) {
+    function account_type($value = '')
+    {
+        $types = [1 => 'Customer', 'Investor', 'Partner', 'Reseller'];
+        return $value !== '' ? ($types[$value] ?? 'Tidak Ada') : $types;
+    }
+}
+
+if (!function_exists('industry_type')) {
+    function industry_type($value = '')
+    {
+        $types = [
+            1 => 'Advertising',
+            'Aerospace',
+            'Agriculture',
+            'Apparel & Accessories',
+            'Architecture',
+            'Automotive',
+            'Banking',
+            'Biotechnology',
+            'Building Materials & Equipment',
+            'Chemical',
+            'Computer',
+            'Construction',
+            'Consulting',
+            'Creative',
+            'Culture',
+            'Defense',
+            'Education',
+            'Electric Power',
+            'Electronics',
+            'Energy',
+            'Entertainment & Leisure',
+            'Finance',
+            'Food & Beverage',
+            'Grocery',
+            'Healthcare',
+            'Hospitality',
+            'Insurance',
+            'Legal',
+            'Manufacturing',
+            'Marketing',
+            'Mass Media',
+            'Mining',
+            'Music',
+            'Petroleum',
+            'Publishing',
+            'Real Estate',
+            'Retail',
+            'Service',
+            'Shipping',
+            'Software',
+            'Sports',
+            'Support',
+            'Technology',
+            'Telecommunications',
+            'Television',
+            'Testing, Inspection & Certification',
+            'Transportation',
+            'Travel',
+            'Venture Capital',
+            'Water',
+            'Wholesale',
+        ];
+        return $value !== '' ? ($types[$value] ?? 'Tidak Ada') : $types;
     }
 }
