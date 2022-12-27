@@ -33,7 +33,7 @@ if (!$account) {
                 <div class="waska-content">
                     <div class="container-fluid">
                         <div class="waska-content-inner">
-                            <div class="waska-content-body">
+                            <form action="<?= current_url(true) ?>" method="POST" class="waska-content-body form-validate">
                                 <div class="wide-md mx-auto">
                                     <div class="waska-block-head waska-block-head-lg wide-sm pb-4">
                                         <div class="waska-block-head-content">
@@ -49,13 +49,18 @@ if (!$account) {
                                             <h3 class="title waska-block-title">Ubah Account</h3>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="waska-block waska-block-lg">
-                                        <form action="<?= current_url(true) ?>" method="POST" class="card form-validate">
+                                <div class="waska-block row">
+                                    <div class="col-md-8">
+                                        <div class="card mb-3">
                                             <div class="card-inner row">
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="name">Nama</label>
+                                                        <label class="form-label" for="name">
+                                                            Nama
+                                                            <span class="text-danger">*</span>
+                                                        </label>
                                                         <div class="form-control-wrap">
                                                             <input type="text" class="form-control" id="name" name="name" required="" value="<?= $account->name ?>">
                                                         </div>
@@ -149,7 +154,7 @@ if (!$account) {
                                                         <label class="form-label" for="type">Tipe</label>
                                                         <div class="form-control-wrap">
                                                             <select name="type" id="type" class="form-control js-select2" data-placeholder="Pilih">
-                                                                <option value="">Pilih</option>
+                                                                <option value=""></option>
                                                                 <?php foreach (account_type() as $val => $text) : ?>
                                                                     <option value="<?= $val ?>" <?= $account->type == $val ? 'selected=""' : '' ?>><?= $text ?></option>
                                                                 <?php endforeach ?>
@@ -163,7 +168,7 @@ if (!$account) {
                                                         <label class="form-label" for="industry">Industri</label>
                                                         <div class="form-control-wrap">
                                                             <select name="industry" id="industry" class="form-control js-select2" data-search="on" data-placeholder="Pilih">
-                                                                <option value="">Pilih</option>
+                                                                <option value=""></option>
                                                                 <?php foreach (industry_type() as $val => $text) : ?>
                                                                     <option value="<?= $val ?>" <?= $account->industry == $val ? 'selected=""' : '' ?>><?= $text ?></option>
                                                                 <?php endforeach ?>
@@ -180,14 +185,20 @@ if (!$account) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-md-4">
+                                        <div class="card mb-3">
+                                            <div class="card-inner">
                                                 <?php if (access_granted(['0', '1'])) : ?>
-                                                    <div class="col-md-6 mt-3">
+                                                    <div class="mb-3">
                                                         <div class="form-group">
                                                             <label class="form-label" for="assigned">Pengguna yang Ditugaskan</label>
                                                             <div class="form-control-wrap">
                                                                 <select name="assigned" id="assigned" class="form-control js-select2" data-search="on" data-placeholder="Pilih">
-                                                                    <option value="">Pilih</option>
+                                                                    <option value=""></option>
                                                                     <?php $users = $db->query("SELECT id, name FROM users WHERE deleted_at IS NULL") ?>
                                                                     <?php while ($user = $users->fetch_object()) : ?>
                                                                         <option value="<?= $user->id ?>" <?= $account->assigned == $user->id ? 'selected=""' : '' ?>><?= $user->name ?></option>
@@ -197,12 +208,12 @@ if (!$account) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6 mt-3">
+                                                    <div class="mb-0">
                                                         <div class="form-group">
                                                             <label class="form-label" for="role">Peran yang Ditugaskan</label>
                                                             <div class="form-control-wrap">
                                                                 <select name="role" id="role" class="form-control js-select2" data-placeholder="Pilih">
-                                                                    <option value="">Pilih</option>
+                                                                    <option value=""></option>
                                                                     <?php foreach (role() as $val => $text) : ?>
                                                                         <?php if ($val >= 2) : ?>
                                                                             <option value="<?= $val ?>" <?= $account->role == $val ? 'selected=""' : '' ?>><?= $text ?></option>
@@ -212,16 +223,34 @@ if (!$account) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <?php endif ?>
+                                                <?php else : ?>
+                                                    <div class="mb-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="assigned">Pengguna yang Ditugaskan</label>
+                                                            <div class="d-block">
+                                                                <span><?= logged('name') ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                <div class="col-md-12 mt-3">
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
+                                                    <div class="mb-0">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="role">Peran yang Ditugaskan</label>
+                                                            <div class="d-block">
+                                                                <span><?= role(logged('role')) ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif ?>
                                             </div>
-                                        </form>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

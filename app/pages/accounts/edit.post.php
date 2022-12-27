@@ -32,9 +32,11 @@ $type = input_post('type') ?: 'NULL';
 $industry = input_post('industry') ?: 'NULL';
 $description = input_post('description');
 
-$assigned = input_post('assigned');
-$role = input_post('role');
+$assigned = input_post('assigned') ?: 'NULL';
+$role = input_post('role') ?: 'NULL';
 $enhancer = LOGGED;
+
+$error = false;
 
 if (empty($name)) {
     $error = 'Kolom wajib diisi tidak boleh kosong.';
@@ -66,13 +68,11 @@ if (empty($name)) {
     $error = 'Kode pos alamat pengiriman tidak boleh melebihi 16 karakter.';
 } elseif (strlen($shipping_country) > 128) {
     $error = 'Kode pos alamat pengiriman tidak boleh melebihi 128 karakter.';
-} elseif (!in_array($type, array_keys(account_type()))) {
+} elseif ($type != 'NULL' && !in_array($type, array_keys(account_type()))) {
     $error = 'Tipe account tidak valid.';
-} elseif (!in_array($industry, array_keys(industry_type()))) {
+} elseif ($industry != 'NULL' && !in_array($industry, array_keys(industry_type()))) {
     $error = 'Industri tidak valid.';
 }
-
-$error = false;
 
 if ($error) {
     set_flashdata('error', $error);
@@ -93,7 +93,7 @@ $update = $db->query(
         "shipping_city = '$shipping_city', shipping_state = '$shipping_state', " .
         "shipping_zip = '$shipping_zip', shipping_country = '$shipping_country', " .
         "type = $type, industry = $industry, description = '$description', " .
-        "assigned = '$assigned', role = '$role', enhancer = '$enhancer' WHERE id = '$uid'"
+        "assigned = $assigned, role = $role, enhancer = '$enhancer' WHERE id = '$uid'"
 );
 
 if (!$update) {

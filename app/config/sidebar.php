@@ -18,7 +18,7 @@ $menus = [
     ],
     [
         'title' => 'Lead',
-        'link' => 'leads',
+        'link' => 0,
         'icon' => 'users',
     ],
     [
@@ -27,28 +27,23 @@ $menus = [
         'icon' => 'sign-dollar',
     ],
     [
-        'title' => 'Email',
-        'link' => 'emails',
-        'icon' => 'mail',
-    ],
-    [
-        'title' => 'Rapat',
-        'link' => 'meetings',
-        'icon' => 'calendar-check',
-    ],
-    [
-        'title' => 'Panggilan',
-        'link' => 'calls',
-        'icon' => 'call',
-    ],
-    [
-        'title' => 'Tugas',
-        'link' => 'tasks',
-        'icon' => 'list-check',
+        'title' => 'Kampanye',
+        'link' => 0,
+        'icon' => 'trend-up',
+        'children' => [
+            [
+                'title' => 'Daftar Target',
+                'link' => 0,
+            ],
+            [
+                'title' => 'Semua Kampanye',
+                'link' => 0,
+            ],
+        ],
     ],
     [
         'title' => 'Laporan',
-        'link' => 'reports',
+        'link' => 0,
         'icon' => 'bar-chart-alt',
     ],
     [

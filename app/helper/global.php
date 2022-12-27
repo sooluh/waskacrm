@@ -176,7 +176,9 @@ if (!function_exists('sidebar')) {
                 $item = [
                     'title' => $menu->title,
                     'icon' => $menu->icon,
-                    'link' => base_url($menu->link),
+                    'link' => $menu->link !== 0
+                        ? base_url($menu->link)
+                        : 'javascript:void(0)',
                     'permission' => $menu->permission ?? [],
                 ];
             }
@@ -192,7 +194,9 @@ if (!function_exists('sidebar')) {
                 foreach ($menu->children as $children) {
                     $child = [
                         'title' => $children->title,
-                        'link' => base_url($children->link),
+                        'link' => $children->link !== 0
+                            ? base_url($children->link)
+                            : 'javascript:void(0)',
                         'permission' => $children->permission ?? [],
                     ];
                     $parent['children'][] = $child;

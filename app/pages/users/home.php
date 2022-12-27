@@ -134,7 +134,7 @@
                             <label for="role" class="form-label">Peran</label>
                             <div class="form-control-wrap">
                                 <select name="role" id="role" class="form-control js-select2" data-placeholder="Pilih" required="">
-                                    <option value="">Pilih</option>
+                                    <option value=""></option>
                                     <?php foreach (role() as $val => $text) : ?>
                                         <?php if ($val >= 1) : ?>
                                             <option value="<?= $val ?>"><?= $text ?></option>

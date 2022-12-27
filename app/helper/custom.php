@@ -152,3 +152,28 @@ if (!function_exists('salutation')) {
         return $value !== '' ? ($data[$value] ?? 'Tidak Ada') : $data;
     }
 }
+
+if (!function_exists('lead_status')) {
+    function lead_status($value = '')
+    {
+        $data = [1 => 'New', 'Assigned', 'In Process', 'Converted', 'Recycled', 'Dead'];
+        return $value !== '' ? ($data[$value] ?? 'Tidak Ada') : $data;
+    }
+}
+
+if (!function_exists('lead_source')) {
+    function lead_source($value = '')
+    {
+        $data = [
+            1 => 'Call',
+            'Email',
+            'Existing Customer',
+            'Partner',
+            'Public Relations',
+            'Website',
+            'Campaign',
+            'Other'
+        ];
+        return $value !== '' ? ($data[$value] ?? 'Tidak Ada') : $data;
+    }
+}
